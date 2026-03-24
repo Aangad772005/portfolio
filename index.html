@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aangad | Web Developer Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #11182d;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-strong: rgba(255, 255, 255, 0.1);
+      --text: #f4f7fb;
+      --muted: #b7c0d8;
+      --line: rgba(255, 255, 255, 0.1);
+      --accent: #7c5cff;
+      --accent-2: #3dd6d0;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 92, 255, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(61, 214, 208, 0.12), transparent 25%),
+        linear-gradient(180deg, #09101e 0%, #0b1020 40%, #070b15 100%);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 12, 24, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 25px rgba(124, 92, 255, 0.35);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .hero {
+      padding: 86px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .eyebrow-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 5px rgba(124, 92, 255, 0.12);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      margin-bottom: 20px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 20%, #9f8cff 55%, #62ece6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #08101f;
+      border: none;
+      box-shadow: 0 16px 32px rgba(124, 92, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .profile-card {
+      position: relative;
+      border-radius: 30px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -40px -80px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(61, 214, 208, 0.3), transparent 70%);
+      filter: blur(10px);
+    }
+
+    .code-window {
+      border-radius: 24px;
+      background: #09101d;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .window-bar {
+      display: flex;
+      gap: 8px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dot.red { background: #ff6b6b; }
+    .dot.yellow { background: #ffd166; }
+    .dot.green { background: #5ce1a7; }
+
+    .code-content {
+      padding: 22px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #d6dcf2;
+    }
+
+    .code-content .key { color: #7c5cff; }
+    .code-content .string { color: #62ece6; }
+    .code-content .comment { color: #8ea0c9; }
+
+    .section {
+      padding: 44px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 640px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .about-card p,
+    .service-card p,
+    .project-card p {
+      color: var(--muted);
+    }
+
+    .mini-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #9ba6c7;
+      margin-bottom: 10px;
+    }
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .skill {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .skill strong {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .skill span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project-card {
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .project-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(124, 92, 255, 0.14);
+      border: 1px solid rgba(124, 92, 255, 0.25);
+      color: #d7ceff;
+      font-size: 0.85rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      background: linear-gradient(135deg, rgba(124,92,255,0.22), rgba(61,214,208,0.22));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .contact {
+      text-align: center;
+      padding: 26px;
+      background: linear-gradient(135deg, rgba(124,92,255,0.16), rgba(61,214,208,0.12));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 30px;
+    }
+
+    .contact h2 {
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      margin-bottom: 10px;
+    }
+
+    .contact p {
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 auto 22px;
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-2,
+      .skills,
+      .projects,
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 54px;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: start;
+        padding: 16px 0;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      h1 {
+        font-size: 3rem;
+      }
+
+      .hero-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#home">
+        <div class="brand-mark">A</div>
+        <div>
+          <div>Aangad</div>
+          <small style="color: var(--muted); font-weight: 500;">Web Developer Portfolio</small>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#process">Process</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="hero">
+    <div class="container hero-grid">
+      <section>
+        <div class="eyebrow"><span class="eyebrow-dot"></span> Available for freelance web development</div>
+        <h1><span class="gradient-text">Websites</span> that look sharp, feel modern, and get results.</h1>
+        <p>
+          I build clean, responsive, and structured websites for brands, businesses, and personal portfolios.
+          My focus is on clear design, strong user experience, and code that is easy to maintain, layouts that drive attention.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-secondary" href="#contact">Start a Project</a>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric">
+            <strong>Fast</strong>
+            <span>Responsive layouts built for all screen sizes</span>
+          </div>
+          <div class="metric">
+            <strong>Clean</strong>
+            <span>Simple structure with premium visual design</span>
+          </div>
+          <div class="metric">
+            <strong>Practical</strong>
+            <span>Built to help clients present their work clearly</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="profile-card">
+        <div class="code-window">
+          <div class="window-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="code-content">
+            <div><span class="comment">// portfolio highlight</span></div>
+            <br />
+            <div><span class="key">const</span> developer = {</div>
+            <div>&nbsp;&nbsp;name: <span class="string">"Aangad"</span>,</div>
+            <div>&nbsp;&nbsp;focus: <span class="string">"Modern websites"</span>,</div>
+            <div>&nbsp;&nbsp;skills: [<span class="string">"HTML"</span>, <span class="string">"CSS"</span>, <span class="string">"JavaScript"</span>],</div>
+            <div>&nbsp;&nbsp;style: <span class="string">"Clean, structured, responsive"</span></div>
+            <div>};</div>
+            <br />
+            <div><span class="comment">// turning ideas into attention</span></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>About me</h2>
+          <p>Who I am, what I build, and the kind of work I enjoy doing.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card about-card">
+          <div class="mini-title">Profile</div>
+          <p>
+            I’m Aangad, a web developer who likes making websites that feel professional, modern, and easy to use.
+            I care about layout, readability, responsiveness, and making every section feel intentional.
+          </p>
+          <br />
+          <p>
+            I build portfolio sites, business landing pages, service websites, and clean interfaces for people who want
+            a strong online presence without clutter.
+          </p>
+          <br />
+          <a href="#" class="btn btn-secondary" style="margin-top:10px; display:inline-block;">Download Resume</a>
+        </div>
+
+        <div class="card about-card">
+          <div class="mini-title">What I value</div>
+          <p>
+            Good design should communicate clearly. I keep things structured, visually balanced, and easy to navigate.
+            My goal is to make a website that looks premium and works well on mobile, tablet, and desktop.
+          </p>
+          <br />
+          <p>
+            I also like code that is simple to maintain, so updates and future changes are easy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="skills" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Skills</h2>
+          <p>The core tools and strengths I use to build websites.</p>
+        </div>
+      </div>
+
+      <div class="skills">
+        <div class="skill">
+          <strong>HTML</strong>
+          <span>Semantic structure and clean page layouts</span>
+        </div>
+        <div class="skill">
+          <strong>CSS</strong>
+          <span>Responsive styling, spacing, and modern visuals</span>
+        </div>
+        <div class="skill">
+          <strong>JavaScript</strong>
+          <span>Simple interaction and dynamic functionality</span>
+        </div>
+        <div class="skill">
+          <strong>UI Design</strong>
+          <span>Balanced sections, readable content, polished look</span>
+        </div>
+        <div class="skill">
+          <strong>React</strong>
+          <span>Building dynamic and component-based user interfaces</span>
+        </div>
+        <div class="skill">
+          <strong>MERN Stack</strong>
+          <span>Full-stack development using MongoDB, Express, React, and Node.js</span>
+        </div>
+        <div class="skill">
+          <strong>Programming</strong>
+          <span>Strong foundation in problem solving and core programming concepts</span>
+        </div>
+        <div class="skill">
+          <strong>DS & Algorithms</strong>
+          <span>Understanding of data structures and algorithmic thinking</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Certifications</h2>
+          <p>Courses and certifications that support my technical foundation.</p>
+        </div>
+      </div>
+
+      <div class="projects">
+        <a href="https://www.coursera.org/account/accomplishments/certificate/69WOYNDQNEQH" target="_blank" class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">C++</span>
+            </div>
+            <h3>Introduction to Object-Oriented Programming in C++</h3>
+            <p>University of London</p>
+          </div>
+        </a>
+
+        <a href="https://www.udemy.com/certificate/UC-b0e68a9e-3985-4360-8573-58b2c226b990/" target="_blank" class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">Web Development</span>
+            </div>
+            <h3>The Complete 2024 Web Development Bootcamp</h3>
+            <p>Dr. Angela Yu</p>
+          </div>
+        </a>
+
+        <a href="https://www.coursera.org/account/accomplishments/verify/5HV7WU6U5OQR" target="_blank" class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">CSS</span>
+            </div>
+            <h3>Learn Tailwind CSS</h3>
+            <p>Scrimba</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="achievements" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Achievements</h2>
+          <p>Highlights that reflect my growth, consistency, and work impact.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="mini-title">Freelancing</div>
+          <p>
+            Provided services to clients including graphic design and web development, delivering modern websites and visual content tailored to their needs.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="mini-title">Projects</div>
+          <p>
+            Developed multiple real-world websites and tools including business websites and interactive web applications.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Education</h2>
+          <p>My academic background and qualifications.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="mini-title">Bachelor’s Degree</div>
+          <p>
+            Bachelor of Technology (B.Tech) in Computer Science and Engineering<br/>
+            Lovely Professional University, Jalandhar, Punjab
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="mini-title">Senior Secondary (12th)</div>
+          <p>
+            77% — Sanskriti K.M.V. School, Jalandhar, Punjab
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="mini-title">Matriculation (10th)</div>
+          <p>
+            86% — Sanskriti K.M.V. School, Jalandhar, Punjab
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Featured projects</h2>
+          <p>A few example project slots you can replace with your real work.</p>
+        </div>
+      </div>
+
+      <div class="projects">
+        <a href="https://www.nomiflavours.com/" target="_blank" class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">Business Website</span>
+              <span style="color: var(--muted); font-size: 0.9rem;">01</span>
+            </div>
+            <h3>Nomi Flavours — Snack Bar Website</h3>
+            <p>
+              A modern website built for Nomi Flavours, a Mumbai-based snack bar brand, focused on showcasing products, branding, and a clean customer experience.
+            </p>
+          </div>
+          <div class="project-meta">
+            <span class="chip">Responsive</span>
+            <span class="chip">Lead-focused</span>
+            <span class="chip">Fast loading</span>
+          </div>
+        </a>
+
+        <a href="https://arender.studio/" target="_blank" class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">Landing Page</span>
+              <span style="color: var(--muted); font-size: 0.9rem;">02</span>
+            </div>
+            <h3>A Render Studio — Agency Website</h3>
+            <p>
+              A modern agency landing page built for A Render Studio, showcasing services like video editing, design, and social media management with a clean and conversion-focused layout.
+            </p>
+          </div>
+          <div class="project-meta">
+            <span class="chip">Minimal</span>
+            <span class="chip">Modern</span>
+            <span class="chip">Easy to navigate</span>
+          </div>
+        </a>
+
+        <a href="https://aangad772005.github.io/os/" target="_blank" class="project-card">
+          <div>
+            <div class="project-top">
+              <span class="project-badge">Web Tool</span>
+              <span style="color: var(--muted); font-size: 0.9rem;">03</span>
+            </div>
+            <h3>Page Replacement Algorithm Simulator</h3>
+            <p>
+              An interactive web-based simulator for operating system page replacement algorithms, helping visualize concepts like FIFO, LRU, and optimal replacement.
+            </p>
+          </div>
+          <div class="project-meta">
+            <span class="chip">Interactive</span>
+            <span class="chip">Educational</span>
+            <span class="chip">JavaScript</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>My process</h2>
+          <p>A simple workflow that keeps projects smooth and structured.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <h3>Plan the structure</h3>
+            <p>Understand the goal, audience, and sections the website needs before designing anything.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <h3>Design the layout</h3>
+            <p>Create a clean visual hierarchy with strong spacing, readable typography, and balanced sections.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <h3>Build and refine</h3>
+            <p>Develop the page, test responsiveness, and polish details so the final site feels complete.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="contact">
+        <h2>Let’s build your website</h2>
+        <p>
+          This portfolio is ready to present your web development skills in a clean, professional way.
+          You can replace the sample project text with your real work and personalize the name, description, and contact details.
+        </p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a class="btn btn-primary" href="https://wa.me/916284965879?text=Hi%20Aangad,%20I%20want%20a%20website" target="_blank">Contact Me on WhatsApp</a>
+
+          <a href="https://github.com/aangad772005" target="_blank" style="width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background: rgba(255,255,255,0.05);">
+            <span style="font-weight:700;">GH</span>
+          </a>
+
+          <a href="https://www.linkedin.com/in/aangadranjitsingh/" target="_blank" style="width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background: rgba(255,255,255,0.05);">
+            <span style="font-weight:700;">IN</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Aangad Ranjit Singh — Portfolio</p>
+    </div>
+  </footer>
+</body>
+</html>
